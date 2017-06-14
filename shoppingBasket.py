@@ -102,10 +102,10 @@ def load_last_shop():
 		target_file.close()
 
 def update_item():
-		print("Updating exiting item.")
+		print("Updating item.")
 		read_items()
 		key = input("Update which item? ")
-		print("Keys:", record.shopping_list.keys())
+		#print("Keys:", record.shopping_list.keys())
 		if key in record.shopping_list.keys():
 			print("Update", key)
 			quanity = is_valid_quanity()
@@ -114,6 +114,22 @@ def update_item():
 		else:
 			print("Unable to find", key, "in record.")
 
+def delete_item():
+	print("Deleting item.")
+	read_items()
+	key = input("Delete which item? Enter 'delete all' to erase record. ")
+	if key == 'delete all':
+		confirm = input("Are you really sure you want to delete everything? (y/n)")
+		if confirm == 'y':
+			record.shopping_list = {}
+	elif key in record.shopping_list.keys():
+		print("Are you sure you want to delete", key, "? (y/n)")
+		confirm = input()
+		if confirm == 'y':
+			del record.shopping_list[key]
+			print(key,"is gone.")
+	else:
+		print("Unable to find", key, "in record.")
 
 ###############################################################################
 # Main
@@ -137,7 +153,7 @@ while not done_shopping:
 	elif user_cmd == 'u':
 		update_item()
 	elif user_cmd == 'd':
-		print("Deleting exiting item.")
+		delete_item()
 	elif user_cmd == 'l':
 		load_last_shop()
 	elif user_cmd == 's':
